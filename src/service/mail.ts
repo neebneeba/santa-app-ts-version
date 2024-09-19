@@ -18,10 +18,10 @@ async function sendRequestsToSmtpServer() {
   const combinedUserData = await service.getCombinedUserData();
 
   await Promise.all(
-    combinedUserData.map(async (user) => {
-      await user.requests.map(async (request) => {
+    combinedUserData.map((user) => {
+      user.requests.map(async (request) => {
         if (!request.isSent && user.address) {
-          const info = await transporter.sendMail({
+          await transporter.sendMail({
             from: "do_not_reply@northpole.com",
             to: "santa@northpole.com",
             subject: `USERNAME: ${user.username}, ADDRESS: ${user.address}`,
