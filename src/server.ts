@@ -15,7 +15,15 @@ import router from "./route";
 const app = express();
 
 // Server configuration
-app.use(express.static(path.join(__dirname, "frontend"))); // this is frontend's build folder and serves as static file
+
+if (process.env.MODE === "production") {
+  app.use(express.static(path.join(__dirname, "frontend"))); // this is frontend's build folder and serves as static file
+} else {
+  app.get("/", (req, res) => {
+    res.send("Ho Ho. Merry Chrismas!");
+  });
+}
+
 app.use(bodyParser.json());
 app.use(morgan("common"));
 app.use(
@@ -34,6 +42,10 @@ cron.schedule("*/15 * * * * *", () => {
 });
 
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function () {
-  console.log("Your app is listening on port: " + process.env.PORT);
-});
+if (process.env.PORT) {
+  const listener = app.listen(process.env.PORT, function () {
+    console.log("Your app is listening on port: " + process.env.PORT);
+  });
+} else {
+  console.log("Port is undefined!");
+}
