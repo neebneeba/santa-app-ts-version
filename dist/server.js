@@ -16,7 +16,14 @@ const mail_1 = __importDefault(require("./service/mail"));
 const route_1 = __importDefault(require("./route"));
 const app = (0, express_1.default)();
 // Server configuration
-app.use(express_1.default.static(path_1.default.join(__dirname, "frontend"))); // this is frontend's build folder and serves as static file
+if (process.env.MODE === "production") {
+    app.use(express_1.default.static(path_1.default.join(__dirname, "frontend"))); // this is frontend's build folder and serves as static file
+}
+else {
+    app.get("/", (req, res) => {
+        res.send("Ho Ho. Merry Chrismas!");
+    });
+}
 app.use(body_parser_1.default.json());
 app.use((0, morgan_1.default)("common"));
 app.use((0, cors_1.default)({
@@ -30,6 +37,11 @@ node_cron_1.default.schedule("*/15 * * * * *", () => {
     console.log("Running a task every 15 seconds");
 });
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function () {
-    console.log("Your app is listening on port: " + process.env.PORT);
-});
+if (process.env.PORT) {
+    const listener = app.listen(process.env.PORT, function () {
+        console.log("Your app is listening on port: " + process.env.PORT);
+    });
+}
+else {
+    console.log("Port is undefined!");
+}
