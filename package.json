@@ -1,5 +1,5 @@
 {
-  "name": "ts-compile",
+  "name": "santa-app-ts-version",
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
