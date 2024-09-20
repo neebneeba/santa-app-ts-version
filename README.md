@@ -12,7 +12,7 @@ santa-app-ts-version
 - frontend /Vite React app source code/
 - src /Express source code/
 - dist /Production build files/
-- frontend /also build files from Vite react app/
+  - frontend /also build files from Vite react app/
 
 # IMPORTANT! READ before starting
 
