@@ -1,7 +1,7 @@
 {
   "name": "ts-compile",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/server.js",
   "scripts": {
     "start": "npx tsc && dotenvx run --env-file=.env.production -- node dist/server.js",
     "dev-backend": "dotenvx run --env-file=.env.development -- nodemon src/server.ts"
